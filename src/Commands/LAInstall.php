@@ -76,7 +76,7 @@ class LAInstall extends Command
                 
                 $default_db_conn = env('DB_CONNECTION', 'mysql');
                 
-                if(LAHelper::laravel_ver() == 5.3 || LAHelper::laravel_ver() == 5.4) {
+                if(LAHelper::laravel_ver() == 5.3 || LAHelper::laravel_ver() == 5.4|| LAHelper::laravel_ver() == 5.5) {
                     config(['database.connections.' . $default_db_conn . '.host' => $db_data['host']]);
                     config(['database.connections.' . $default_db_conn . '.port' => $db_data['port']]);
                     LAHelper::setenv("DB_HOST", $db_data['host']);
@@ -107,7 +107,7 @@ class LAInstall extends Command
                 // Controllers
                 $this->line("\n" . 'Generating Controllers...');
                 $this->copyFolder($from . "/app/Controllers/Auth", $to . "/app/Http/Controllers/Auth");
-                if(LAHelper::laravel_ver() == 5.3 || LAHelper::laravel_ver() == 5.4) {
+                if(LAHelper::laravel_ver() == 5.3 || LAHelper::laravel_ver() == 5.4|| LAHelper::laravel_ver() == 5.5) {
                     // Delete Redundant Controllers
                     unlink($to . "/app/Http/Controllers/Auth/PasswordController.php");
                     unlink($to . "/app/Http/Controllers/Auth/AuthController.php");
@@ -118,7 +118,7 @@ class LAInstall extends Command
                     unlink($to . "/app/Http/Controllers/Auth/ResetPasswordController.php");
                 }
                 $this->replaceFolder($from . "/app/Controllers/LA", $to . "/app/Http/Controllers/LA");
-                if(LAHelper::laravel_ver() == 5.3 || LAHelper::laravel_ver() == 5.4) {
+                if(LAHelper::laravel_ver() == 5.3 || LAHelper::laravel_ver() == 5.4|| LAHelper::laravel_ver() == 5.5) {
                     $this->copyFile($from . "/app/Controllers/Controller.5.3.php", $to . "/app/Http/Controllers/Controller.php");
                 } else {
                     $this->copyFile($from . "/app/Controllers/Controller.php", $to . "/app/Http/Controllers/Controller.php");
@@ -126,12 +126,12 @@ class LAInstall extends Command
                 $this->copyFile($from . "/app/Controllers/HomeController.php", $to . "/app/Http/Controllers/HomeController.php");
                 
                 // Middleware
-                if(LAHelper::laravel_ver() == 5.3 || LAHelper::laravel_ver() == 5.4) {
+                if(LAHelper::laravel_ver() == 5.3 || LAHelper::laravel_ver() == 5.4|| LAHelper::laravel_ver() == 5.5) {
                     $this->copyFile($from . "/app/Middleware/RedirectIfAuthenticated.php", $to . "/app/Http/Middleware/RedirectIfAuthenticated.php");
                 }
 
                 // AppServiceProvider - https://laravel-news.com/laravel-5-4-key-too-long-error
-                if(LAHelper::laravel_ver() == 5.4) {
+                if(LAHelper::laravel_ver() == 5.4 || LAHelper::laravel_ver() == 5.5) {
                     $this->copyFile($from . "/app/Providers/AppServiceProvider.php", $to . "/app/Providers/AppServiceProvider.php");
                 }
 
@@ -147,7 +147,7 @@ class LAInstall extends Command
                 }
                 foreach($this->modelsInstalled as $model) {
                     if($model == "User") {
-                        if(LAHelper::laravel_ver() == 5.3 || LAHelper::laravel_ver() == 5.4) {
+                        if(LAHelper::laravel_ver() == 5.3 || LAHelper::laravel_ver() == 5.4|| LAHelper::laravel_ver() == 5.5) {
                             $this->copyFile($from . "/app/Models/" . $model . "5.3.php", $to . "/app/" . $model . ".php");
                         } else {
                             $this->copyFile($from . "/app/Models/" . $model . ".php", $to . "/app/" . $model . ".php");
@@ -255,7 +255,7 @@ class LAInstall extends Command
                 // Routes
                 $this->line('Appending routes...');
                 //if(!$this->fileContains($to."/app/Http/routes.php", "laraadmin.adminRoute")) {
-                if(LAHelper::laravel_ver() == 5.3 || LAHelper::laravel_ver() == 5.4) {
+                if(LAHelper::laravel_ver() == 5.3 || LAHelper::laravel_ver() == 5.4|| LAHelper::laravel_ver() == 5.5) {
                     if(LAHelper::getLineWithString($to . "/routes/web.php", "require __DIR__.'/admin_routes.php';") == -1) {
                         $this->appendFile($from . "/app/routes.php", $to . "/routes/web.php");
                     }
@@ -270,7 +270,7 @@ class LAInstall extends Command
                 // tests
                 $this->line('Generating tests...');
                 $this->copyFolder($from . "/tests", $to . "/tests");
-                if(LAHelper::laravel_ver() == 5.3 || LAHelper::laravel_ver() == 5.4) {
+                if(LAHelper::laravel_ver() == 5.3 || LAHelper::laravel_ver() == 5.4|| LAHelper::laravel_ver() == 5.5) {
                     unlink($to . '/tests/TestCase.php');
                     rename($to . '/tests/TestCase5.3.php', $to . '/tests/TestCase.php');
                 } else {
