@@ -60,7 +60,7 @@ class LAInstall extends Command
                 $this->line("DB Assistant Initiated....");
                 $db_data = array();
                 
-                if(LAHelper::laravel_ver() == 5.3 || LAHelper::laravel_ver() == 5.4) {
+                if(LAHelper::laravel_ver() == 5.3 || LAHelper::laravel_ver() == 5.4|| LAHelper::laravel_ver() == 5.5) {
                     $db_data['host'] = $this->ask('Database Host', '127.0.0.1');
                     $db_data['port'] = $this->ask('Database Port', '3306');
                 }
